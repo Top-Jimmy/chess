@@ -326,9 +326,14 @@ export const GameProvider = props => {
         // For each player calculate and return...
         // defended_squares: a square defended (or attacked) by at least 1 of that color's pieces
         // checked_squares: a checked player must move king, or move piece to block one of these squares
+        let newKingMeta = {
+            [otherPlayer]: { ...newOtherPlayerKingMeta },
+            [player]: { ...newPlayerKingMeta },
+        };
 
         const basicGameData = calculateAvailableSquares(newGameSquares);
-        const finalGameData = calculateLegalSquares(basicGameData, newPlayerKingMeta);
+        const finalGameData = calculateLegalSquares(basicGameData, newKingMeta);
+        
         
         const newPlayerMeta = { black: finalGameData.black, white: finalGameData.white };
 
@@ -337,13 +342,8 @@ export const GameProvider = props => {
 
         // Checkmate: other player's king is in check AND they have no legal moves
         if (finalGameData.checkmated[otherPlayer]) {
-            newOtherPlayerKingMeta.checkmated = true;
+            newKingMeta[otherPlayer].newOtherPlayerKingMeta.checkmated = true;
         }
-
-        const newKingMeta = {
-            [otherPlayer]: { ...newOtherPlayerKingMeta },
-            [player]: { ...newPlayerKingMeta },
-        };
 
         addMove({
             gameSquares: finalGameData.gameSquares,

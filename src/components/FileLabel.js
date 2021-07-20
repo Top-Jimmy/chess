@@ -9,7 +9,7 @@ const FileLabel = (props) => {
     const renderedRankLabels = files.map((file, i) => {
         return (
             <div key={i} className="cell fileLabel">
-                {labels[i]}
+                {labels[file - 1]}
             </div>
         );
     });

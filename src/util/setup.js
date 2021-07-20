@@ -36,7 +36,7 @@ const defaultPieces = [{
         file: 4,
     },
     piece: {
-        type: 'king',
+        type: 'queen',
         color: 'white',
     },
 },
@@ -46,7 +46,7 @@ const defaultPieces = [{
         file: 5,
     },
     piece: {
-        type: 'queen',
+        type: 'king',
         color: 'white',
     },
 },
@@ -196,7 +196,7 @@ const defaultPieces = [{
         file: 4,
     },
     piece: {
-        type: 'king',
+        type: 'queen',
         color: 'black',
     },
 },
@@ -206,7 +206,7 @@ const defaultPieces = [{
         file: 5,
     },
     piece: {
-        type: 'queen',
+        type: 'king',
         color: 'black',
     },
 },
@@ -343,7 +343,7 @@ export function defaultGamePositions() {
             // odd = black
             const sum = rank + file;
             const even = (sum % 2  === 0) || false;
-            const squareColor = even ? 'white' : 'black';
+            const squareColor = even ? 'black' : 'white';
             return {
                 rank,
                 file,
@@ -369,7 +369,7 @@ export const defaultKingMeta = {
         queensideRookMoved: false,
         checkmated: false,
         position: {
-            file: 4,
+            file: 5,
             rank: 8,
         }
     },
@@ -379,7 +379,7 @@ export const defaultKingMeta = {
         queensideRookMoved: false,
         checkmated: false,
         position: {
-            file: 4,
+            file: 5,
             rank: 1,
         }
     }

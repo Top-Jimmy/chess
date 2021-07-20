@@ -176,10 +176,11 @@ export function calculateAvailableSquares(gameSquares) {
   }
 }
 
-function calcCastleSquares(ranks, player, defendedSquares, playerKingMeta) {
+function calcCastleSquares(ranks, player, defendedSquares, kingMeta) {
   // Return valid squares king can castle to
   // squares also contain before/after positions of rooks used to re-calculate position after castling king
   let castle_squares = [];
+  const playerKingMeta = kingMeta[player];
 
   if (playerKingMeta.moved) {
     return [];
@@ -192,12 +193,12 @@ function calcCastleSquares(ranks, player, defendedSquares, playerKingMeta) {
   
   if (validKingside && !playerKingMeta.kingsideRookMoved) {
     castle_squares.push(
-      {file: 2, rank, rookBeforeSquare: {file: 1, rank }, rookAfterSquare: {file: 3, rank}}
+      {file: 7, rank, rookBeforeSquare: {file: 8, rank }, rookAfterSquare: {file: 6, rank}}
     );
   }
   if (valideQueenside && !playerKingMeta.queensideRookMoved) {
     castle_squares.push(
-      {file: 6, rank, rookBeforeSquare: {file: 8, rank }, rookAfterSquare: {file: 5, rank}}
+      {file: 3, rank, rookBeforeSquare: {file: 1, rank }, rookAfterSquare: {file: 4, rank}}
     );
   }
 
@@ -214,8 +215,8 @@ const validCastleOptions = (ranks, rank, defendedSquares) => {
 
   
   const kingsideSquares = [
-    ranks[rank - 1][1],
-    ranks[rank - 1][2],
+    ranks[rank - 1][5],
+    ranks[rank - 1][6],
   ];
   kingsideSquares.forEach((s) => {
     if (s.piece) {
@@ -227,15 +228,15 @@ const validCastleOptions = (ranks, rank, defendedSquares) => {
   
   // Add queenside castle square if not blocked
   const queensideSquares = [
-    ranks[rank - 1][6],
-    ranks[rank - 1][5],
-    ranks[rank - 1][4],
+    ranks[rank - 1][1],
+    ranks[rank - 1][2],
+    ranks[rank - 1][3],
   ];
-  // King doesn't cross G file (7) on queenside castle
+  // King doesn't cross B file (2) on queenside castle
   queensideSquares.forEach((s) => {
     if (s.piece) {
       valideQueenside = false;
-    } else if (s.file !== 7 && defendedSquares.filter((ds) => ds.rank === s.rank && ds.file === s.file).length) {
+    } else if (s.file !== 2 && defendedSquares.filter((ds) => ds.rank === s.rank && ds.file === s.file).length) {
       valideQueenside = false;
     }
   });
